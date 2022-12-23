@@ -8,7 +8,9 @@ import {
   Stack,
   Text,
   Link,
-  Box
+  Box,
+  LinkOverlay,
+  LinkBox
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -25,7 +27,7 @@ export default function Home() {
   const submit = async () => {
     //check if url is valid
     if (!url) return
-    if (!url.startsWith('http')) {
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
       setUrl('https://' + url)
     }
     setLoading(true)
@@ -38,7 +40,7 @@ export default function Home() {
       })
   })
   const data = await res.json()
-  setShortUrl(`http://localhost:3000/id/${data.id}`)
+  setShortUrl(`${process.env.NEXT_PUBLIC_API_URL}/id/${data.id}`)
   setLoading(false)
   setOpacity(1)
   }
@@ -51,17 +53,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container maxW='full'  className={styles.main} bgGradient='linear(to-r, white, purple.300)' centerContent>
-        <Stack spacing={10}  w='50%' >
-        <Container>
+      <Container centerContent maxW={'full'} bgColor={'black'} >
+        <LinkBox>
+        <LinkOverlay href="https://polybase.xyz">
+        <Text  fontSize="md" fontWeight="bold" color={'white'}>Built with Polybase. Click here to learn more. </Text>
+        </LinkOverlay>
+        </LinkBox>
+      </Container>
+      <Container maxW='full'  className={styles.main} bgGradient='linear(to-bl, gray.300, purple.300)' centerContent>
+        <Stack spacing={50}  w='75%' direction={'column'} >
+        <Container maxW={'full'}>
           <Text fontSize="6xl" fontWeight="bold">PolyShort </Text>
-          <Text fontSize="xl" fontWeight="bold">URL shortener with a decentralized database</Text>
+          <Text fontSize="xl" fontWeight="bold" color={'gray.100'} >URL shortener built with Polybase</Text>
           </Container>
-          <Container>
+          <Container >
             <FormControl>
+            <FormHelperText fontWeight={'bold'}>Get a shortened link from a decentralized database</FormHelperText>
               <Input type='link' placeholder="Enter your URL here" borderColor={'blackAlpha.300'} value={url} onChange={(e) => setUrl(e.target.value)} />
-              <FormHelperText>Get a shortened link from a decentralized database</FormHelperText>
-              <Button onClick={submit} isLoading={loading}> Submit</Button>
+              <Button onClick={submit} isLoading={loading} colorScheme={'purple'} opacity={'.5'}> Submit</Button>
             </FormControl>
           </Container>
           <Container bgColor={'gray.400'} borderRadius = 'md'  opacity={opacity} >

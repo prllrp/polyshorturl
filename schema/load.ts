@@ -2,7 +2,7 @@ import { Polybase } from '@polybase/client'
 
 
 const schema = `
-collection test {
+collection links {
   id: string; 
   url: string;
   
@@ -23,7 +23,7 @@ async function load () {
 
  
 
-  await db.applySchema(schema, 'polyshort/test')
+  await db.applySchema(schema, 'polyshort')
 
   return 'Schema loaded'
 }

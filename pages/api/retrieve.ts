@@ -5,7 +5,7 @@ import { Polybase } from '@polybase/client';
 
     const polybase = new Polybase({
         baseURL: 'https://testnet.polybase.xyz/v0',
-        defaultNamespace: 'polyshort/test'
+        defaultNamespace: 'polyshort'
     })
 
 
@@ -16,7 +16,7 @@ import { Polybase } from '@polybase/client';
 
     
     try {
-        const collection =  polybase.collection('test');
+        const collection =  polybase.collection('links');
         const data = await collection.record(id).get();
         res.status(200).json(data);
     } catch (error) {

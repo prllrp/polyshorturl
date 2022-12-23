@@ -8,7 +8,7 @@ export default async function shorten(req: NextApiRequest, res: NextApiResponse)
     //create a new polybase instance
     const polybase = new Polybase({
         baseURL: 'https://testnet.polybase.xyz/v0',
-        defaultNamespace: 'polyshort/test'
+        defaultNamespace: 'polyshort'
     })
 
     
@@ -18,7 +18,7 @@ export default async function shorten(req: NextApiRequest, res: NextApiResponse)
     //generate a random id
     const id = nanoid(8).toString();
     //create a collection
-    const collection = polybase.collection('test');
+    const collection = polybase.collection('links');
     //create a record
     const record = await collection.create([id, url]);
     //return the id to the client

@@ -10,7 +10,7 @@ export default function Page(data: any) {
     
     const url = data.data.data.url
     router.replace(url)
-    window.location.href= `https://${url}`
+    window.location.href= `${url}`
     return
   }, []);
   return (
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: any) {
   const id = context.params.id
   
 
-  const res = await fetch('http://localhost:3000/api/retrieve', {
+  const res = await fetch(`${process.env.NEXT_API_URL}/api/retrieve`, {
     method: 'POST',
     body: JSON.stringify({
       id: id
