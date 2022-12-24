@@ -61,7 +61,7 @@ export default function Home() {
         </LinkBox>
       </Container>
       <Container maxW='full'  className={styles.main} bgGradient='linear(to-bl, gray.300, purple.300)' centerContent>
-        <Stack spacing={50}  w='75%' direction={'column'} >
+        <Stack spacing={30}  w='75%' direction={'column'} >
         <Container maxW={'full'}>
           <Text fontSize="6xl" fontWeight="bold">PolyShort </Text>
           <Text fontSize="xl" fontWeight="bold" color={'gray.100'} >URL shortener built with Polybase</Text>
@@ -76,6 +76,18 @@ export default function Home() {
           <Container bgColor={'gray.400'} borderRadius = 'md'  opacity={opacity} >
             <Text fontSize="xl" fontWeight="bold" color = 'HighlightText'>Your shortened link:</Text>
             <Link  href={shortUrl}>{shortUrl}</Link>
+          </Container>
+          <Container>
+            <Text fontSize="xl" fontWeight="bold" color={'black'} >What is Polybase?</Text>
+            <Text fontSize="md" fontWeight="bold" color={'gray.100'} >
+            Polybase is the database for all of humanity’s data. Fast, decentralized and designed from the ground up to scale beyond 1M transactions per second.
+
+Polybase is better than using a centralized database like Firebase or Postgres because you can encrypt data using wallets for “self sovereign data” and verifiably query Polybase from smart collections (coming soon).
+
+Polybase is better than storing data on-chain because it’s 1000 to a million times cheaper than on-chain storage. For example, storing 1MB on Ethereum costs around $64,000.
+
+Blockchains are not built for scalable structured data storage so we built Polybase to combine the best attributes of web2 databases and blockchains.
+            </Text>
           </Container>
         </Stack>
       </Container>
