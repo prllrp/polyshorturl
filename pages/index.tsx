@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <Box w='100%'>
       <Head>
-        <title>Create Next App</title>
+        <title>PolyShort</title>
         <meta name="description" content="PolyShort" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
