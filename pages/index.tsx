@@ -10,7 +10,8 @@ import {
   Link,
   Box,
   LinkOverlay,
-  LinkBox
+  LinkBox,
+  Checkbox
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -23,6 +24,7 @@ export default function Home() {
   const [shortUrl, setShortUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const [opacity, setOpacity] = useState(0)
+  const [checked, setChecked] = useState(false)
 
   const submit = async () => {
     //check if url is valid
@@ -36,11 +38,17 @@ export default function Home() {
     const res = await fetch('/api/shorten', {
       method: 'POST',
       body: JSON.stringify({
-        url: url
+        url: url,
+        secret: checked
       })
   })
   const data = await res.json()
-  setShortUrl(`${process.env.NEXT_PUBLIC_API_URL}/id/${data.id}`)
+  console.log(data)
+  if(data.symmetricKeyStr){
+    setShortUrl(`${process.env.NEXT_PUBLIC_API_URL}/id/${data.id}?key=${data.symmetricKeyStr}`)
+  }else{
+    setShortUrl(`${process.env.NEXT_PUBLIC_API_URL}/id/${data.id}`)
+  }
   setLoading(false)
   setOpacity(1)
   }
@@ -70,7 +78,23 @@ export default function Home() {
             <FormControl>
             <FormHelperText fontWeight={'bold'}>Get a shortened link from a decentralized database</FormHelperText>
               <Input type='link' placeholder="Enter your URL here" borderColor={'blackAlpha.300'} value={url} onChange={(e) => setUrl(e.target.value)} />
-              <Button onClick={submit} isLoading={loading} colorScheme={'purple'} opacity={'.5'}> Submit</Button>
+              <Checkbox colorScheme="green" onChange={(e)=> setChecked}> Secret </Checkbox>
+              <Button onClick={submit} isLoading={loading} colorScheme={'purple'} opacity={'.5'} _after={{
+                content: `""`,
+                display: 'block',
+                boxSizing: 'border-box',
+                background: 'rgba(0, 246, 153, 0.267)',
+                border: '2px solid rgba(0, 246, 153, 0.4)',
+                borderRadius: '4px',
+                height: 'calc(100% + 6px)',
+                width: 'calc(100% + 6px)',
+                position: 'absolute',
+                top: '3px',
+                left: '3px',
+                right: '0px',
+                zIndex: '-2',
+                transition: 'transform 0.2s ease 0s'
+              }} > Submit</Button>
             </FormControl>
           </Container>
           <Container bgColor={'gray.400'} borderRadius = 'md'  opacity={opacity} >
